@@ -5,7 +5,7 @@
 #### Docker ビルド
 
 1. ファイルをクローン
-   > git clone git@github.com:yuho-komahashi/case__flea-market.git
+   > git clone git@github.com:yuho-komahashi/case__flea-market-clean.git
 1. DockerDesktop 起動
 1. docker-compose up -d --build
 
@@ -32,8 +32,8 @@
    > MAIL_FROM_ADDRESS=noreply@example.com  
    > MAIL_FROM_NAME="COACHTECH Fleamarket App"  
 - 決済機能 stripe関連の設定 以下を最後に追記。キーは.envに追記してください。
-   > STRIPE_KEY=pk_test_xxxx
-   > STRIPE_SECRET=sk_test_xxxx 
+   > STRIPE_KEY=pk_test_xxxx  
+   > STRIPE_SECRET=sk_test_xxxx  
    > SESSION_DOMAIN=localhost  
    > SESSION_SECURE_COOKIE=false  
 5. アプリケーションキーの作成
