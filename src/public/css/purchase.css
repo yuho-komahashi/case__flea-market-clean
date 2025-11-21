@@ -1,0 +1,180 @@
+.purchase__wrapper {
+    max-width: 1345px;
+    margin: 0 auto;
+    padding-top: 100px;
+    display: flex;
+}
+
+.purchase-item__wrapper{
+    width:805px;
+    margin-right: 100px;
+}
+
+.purchase-item{
+    display: flex;
+    border-bottom: 1px solid #5f5f5f;
+}
+
+.purchase-item__image{
+    width:178px;
+    height: 178px;
+    margin-right: 55px;
+    margin-bottom: 55px;
+    object-fit: cover;
+}
+
+.purchase-item__name{
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.purchase-item__price{
+    display: flex;
+    align-items: baseline;
+}
+
+.purchase-item__price--display{
+    font-size: 26px;
+    margin-right: 8px;
+}
+
+.purchase-item__price--price{
+    font-size: 32px;
+}
+
+.payment-method,
+.shipping-address{
+    padding: 30px;
+    border-bottom: 1px solid #5f5f5f;
+}
+
+.payment-method__header,
+.shipping-address__header{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.payment-method__wrapper{
+    padding: 40px 60px;
+}
+
+.payment-method__select{
+    width: 265px;
+    height: 30px;
+}
+
+.payment-method__select--input{
+    width:100%;
+    height: 100%;
+    border: 1px solid #5f5f5f;
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 5px;
+    outline: none;
+}
+
+.shipping-address__header-area{
+    display: flex;
+    justify-content: space-between;
+    }
+
+.link__text--address{
+    font-size: 20px;
+    color: #0073cc;
+    text-decoration: none;
+}
+
+.shipping-address__wrapper{
+    padding: 40px 80px 40px 60px;
+}
+
+.shipping-address__input{
+    width:605px;
+    padding: 2px;
+}
+
+.shipping-address__input--display{
+    font-size: 20px;
+}
+
+.shipping-address__input--text,
+.shipping-address__input--postcode{
+    font-size: 20px;
+    outline: none;
+    border: none;
+}
+
+.shipping-address__input--postcode{
+    width: 95%;
+}
+
+.shipping-address__input--text{
+    width:100%
+}
+
+.payment-confirm__wrapper{
+    width:440px;
+}
+
+.confirm-table{
+    width:100%;
+    margin-bottom: 60px;
+}
+
+.button__small {
+    width: 100%;
+    height: 60px;
+    background-color: #ff5555;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 4px;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.confirm-table__row{
+    height: 115px;
+    text-align: center;
+    border: 1px solid #5f5f5f;
+}
+
+.confirm-table__header{
+    width:220px;
+    font-size: 20px;
+}
+
+.confirm-table__price--display {
+    font-size: 24px;
+    margin-right: 5px;
+}
+
+.confirm-table__price{
+    font-size: 28px;
+}
+
+.confirm-table__method {
+    font-size: 24px;
+}
+
+@media screen and (max-width:850px){
+    .purchase__wrapper{
+        display: block;
+        padding: 80px 80px 0;
+    }
+
+    .purchase-item__wrapper {
+        width: 100%;
+    }
+
+    .shipping-address{
+        margin-bottom: 50px;
+    }
+
+    .payment-confirm__wrapper {
+        width: 80%;
+        margin-left: 10%;
+    }
+}

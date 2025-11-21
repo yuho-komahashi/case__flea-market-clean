@@ -1,0 +1,101 @@
+.item-list__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1380px;
+    gap: 0 5px;
+    padding-top: 50px;
+}
+
+/* タブボタン */
+.tab-label{
+    display: inline-block;
+    width:155px;
+    background:#ffffff;
+    cursor: pointer;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 5px;
+    margin-right: 20px;
+    text-decoration: none;
+    color:#000000;
+}
+
+.tab-label.active {
+    color: #ff5555;
+    font-weight: bold;
+}
+
+.item-list {
+    width: 100%;
+}
+
+.item-list::before {
+    content: "";
+    position: absolute;
+    top: 10;
+    left: 0;
+    height: 2px;
+    width: 100vw;
+    background: #5f5f5f;
+}
+
+.item-list__content{
+    margin-top: 75px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 71px;
+    position: relative;
+}
+
+.item-list__image{
+    width:290px;
+    height:290px;
+    object-fit: cover;/* アスペクト比を維持しつつトリミング */
+    margin-bottom: 8px;
+}
+
+.item-list__label{
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.sold-label{
+    display: block;
+    width:80px;
+    height: 30px;
+    padding: 5px;
+    background-color: #ff5555;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.search-result__wrapper {
+    width: 100%;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.search-result__text {
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 24px;
+    font-weight: bold;
+    color: #000000;
+}
+
+@media screen and (max-width:850px){
+    .item-list__wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 5px;
+        padding: 65px 50px 0;
+    }
+
+    .item-list__group{
+        margin-left: 6%;
+    }
+}

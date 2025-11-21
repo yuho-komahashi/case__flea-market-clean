@@ -1,0 +1,126 @@
+/*マイページ・プロフィールページ共通*/
+.user-profile{
+    display: flex;
+    align-items: center;
+    margin-bottom: 55px;
+    width: 100%;
+    padding: 0 10%;
+}
+
+.user-profile__image--wrapper{
+    display: flex;
+    align-items: center;
+    width:100%;
+    justify-content: space-between;
+    padding: 0 5%;
+}
+
+.user-profile__image--mypage{
+    display: flex;
+    height: 150px;
+    align-items: center;
+    text-align: center;
+    width:50%;
+}
+
+.user-profile__image--image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: center;
+}
+
+.user-profile__image--name{
+    display: block;
+    font-size: 36px;
+    font-weight: bold;
+    margin-left: 55px;
+
+}
+
+.button-area__profile{
+    text-align: center;
+}
+
+.button__white{
+    background-color: #ffffff;
+    color: #ff5555;
+    border: 2px solid #ff5555;
+    text-align: center;
+    line-height: 1.5;
+    outline: none;
+    border-radius: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: bold;
+    width: 310px;
+    font-size: 26px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/*プロフィールページ*/
+
+.user-profile__profile {
+    margin-bottom: 55px;
+}
+
+.user-profile_wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.user-profile__image--profile {
+    display: flex;
+    align-items: center;
+}
+
+.image__upload{
+    width:100%;
+    padding-left: 40px;
+}
+
+.button__white--mini {
+    font-size: 14px;
+    width:100%;
+}
+
+.button__white--mini::file-selector-button {
+    display: block;
+    width:180px;
+    height: 50px;
+    background-color: #ffffff;
+    color: #ff5555;
+    border: 2px solid #ff5555;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 9px 10px;
+    text-align: center;
+    outline: none;
+    border-radius: 10px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+@media screen and (max-width:850px){
+
+    .user-profile__image--wrapper{
+        padding: 0 4%;
+    }
+
+    .user-profile{
+        padding: 0;
+    }
+
+    .user-profile__image--name{
+        margin-left: 30px;
+    }
+
+    .button__white{
+        width:100%;
+        font-size: 20px;
+    }
+}
