@@ -23,10 +23,10 @@
             </div>
             <div class="header__utilities">
                 <div class="header__search">
-                    <form class="search-form" action="{{ route('items.search') }}" method="get">
+                    <form class="search-form" action="{{ route('items.index') }}" method="get">
                         @csrf
-                        <input class="search-form__input" type="text" name="keyword" placeholder="なにをお探しですか？" value="{{ request('keyword') }}">
-                        <input type="hidden" name="tab" value="{{ isset($tab) ? $tab : 'recommend' }}">
+                        <input class="search-form__input" type="text" name="keyword" placeholder="なにをお探しですか？" value="{{ $keyword ?? '' }}">
+                        <input type="hidden" name="tab" value="{{ $tab ?? 'recommend' }}">
                     </form>
                 </div>
                 <div class="header__navigation">

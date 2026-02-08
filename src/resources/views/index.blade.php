@@ -10,39 +10,32 @@
 @section('content')
 <div class="content">
     <div class="item-list__wrapper">
+
+        {{-- タブ --}}
         <div class="list-tab">
-            <a href="{{ route('items.index', ['tab' => 'recommend']) }}" class="tab-label {{ $tab === 'recommend' ? 'active' : '' }}">おすすめ</a>
-            @auth
-            <a href="{{ route('items.index', ['tab' => 'mylist']) }}" class="tab-label {{ $tab === 'mylist' ? 'active' : '' }}">マイリスト</a>
-            @else
-            <a href="{{ url('/login') }}" class="tab-label">マイリスト</a>
-            @endauth
+            <a href="{{ route('items.index', ['tab' => 'recommend', 'keyword' => $keyword]) }}" class="tab-label {{ $tab === 'recommend' ? 'active' : '' }}">おすすめ</a>{{-- タブ切り替え時に keyword を引き継ぐ --}}
+            <a href="{{ route('items.index', ['tab' => 'mylist', 'keyword' => $keyword]) }}" class="tab-label {{ $tab === 'mylist' ? 'active' : '' }}">マイリスト</a>{{-- タブ切り替え時に keyword を引き継ぐ --}}
         </div>
 
+        {{-- 商品一覧 --}}
         <div class="item-list">
             <div class="item-list__content">
-                @if($keyword)
-                    @if($items->isEmpty())
+                @if($items->isEmpty()){{-- $itemsの有無を判定（検索か否かはindexが判断） --}}
+                    @if($keyword){{-- keywordの有無を判断 --}}
                         <div class="search-result__wrapper">
                             <p class="search-result__text">
                                 「{{ $keyword }}」に一致する商品は見つかりませんでした。
                             </p>
                         </div>
                     @else
-                        @foreach($items as $item)
-                            @include('components.item-card',['item'=> $item])
-                        @endforeach
+                        <p class="search-result__text">
+                            商品がありません。
+                        </p>
                     @endif
                 @else
-                    @if ($tab === 'recommend')
-                        @foreach($items as $item)
-                            @include('components.item-card',['item'=> $item])
-                        @endforeach
-                    @elseif ($tab === 'mylist')
-                        @foreach($items as $item)
-                            @include('components.item-card',['item'=> $item])
-                        @endforeach
-                    @endif
+                    @foreach($items as $item)
+                        @include('components.item-card',['item'=> $item])
+                    @endforeach
                 @endif
             </div>
         </div>

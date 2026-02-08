@@ -16,13 +16,15 @@
     position: relative;
 }
 
+/*
 .button__white--mini{
     font-size: 14px;
     width: 165px;
     padding-top: 105px;
 }
+*/
 
-.button__white--mini::file-selector-button{
+.button__white--mini2{
     display: block;
     position: absolute;
     top:0;
@@ -35,6 +37,7 @@
     background-color: #ffffff;
     font-size: 16px;
     font-weight: bold;
+    line-height: 1.8;
     color: #ff5555;
     border: 2px solid #ff5555;
     padding: 8px 16px;
@@ -43,6 +46,10 @@
     border-radius: 10px;
     text-decoration: none;
     cursor: pointer;
+}
+
+.file-input-hidden {
+    display: none;
 }
 
 .form__header--sub{
@@ -126,6 +133,6 @@
 }
 
 .form-input__price{
-    width:96%;
+    width:100%;
     margin-left: 5px;
 }

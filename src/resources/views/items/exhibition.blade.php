@@ -19,10 +19,11 @@
             @csrf
             <div class="form__group">
                 <div class="form__title">
-                    <h3 class="sell-form__header">商品画像</h3>
+                    <p class="sell-form__header">商品画像</p>
                 </div>
                 <div class="item-image__upload__wrapper">
-                    <input class="button__white--mini" type="file" name="item_image" id="item_image" value="{{ old('item_image')}}">
+                    <label for="item_image" class="button__white--mini2">画像を選択する</label>
+                    <input id="item_image" class="file-input-hidden" type="file" name="item_image" value="{{ old('item_image')}}">
                 </div>
                 <p class="form_error--message">
                     @error('item_image')
@@ -35,7 +36,7 @@
             </div>
             <div class="form__group">
                 <div class="form__title">
-                    <h3 class="sell-form__header">カテゴリー</h3>
+                    <p class="sell-form__header">カテゴリー</p>
                 </div>
                 <div class="category-area__wrapper">
                     <div class="category-button__wrapper">
@@ -57,7 +58,7 @@
             </div>
             <div class="form__group">
                 <div class="form__title">
-                    <h3 class="sell-form__header">商品の状態</h3>
+                    <p class="sell-form__header">商品の状態</p>
                 </div>
                 <div class="condition__wrapper">
                     <select class="condition-input" name="condition_id">
@@ -78,7 +79,7 @@
             </div>
             <div class="form__group">
                 <div class="form__title">
-                    <h3 class="sell-form__header">商品名</h3>
+                    <p class="sell-form__header">商品名</p>
                 </div>
                 <input class="form-input" type="text" name="item_name" placeholder="商品名を入力してください" value="{{ old('item_name') }}" >
                 <p class="form_error--message">
@@ -89,13 +90,13 @@
             </div>
             <div class="form__group">
                 <div class="form__title">
-                    <h3 class="sell-form__header">ブランド名</h3>
+                    <p class="sell-form__header">ブランド名</p>
                 </div>
                 <input class="form-input" type="text" name="brand" placeholder="ブランド名を入力してください（任意）" value="{{ old('brand') }}">
             </div>
             <div class="form__group">
                 <div class="form__title">
-                    <h3 class="sell-form__header">商品の説明</h3>
+                    <p class="sell-form__header">商品の説明</p>
                 </div>
                 <textarea class="form-input__description" name="description" placeholder="商品説明を入力してください（255文字以内）" cols="46" rows="7">{{ old('description') }}</textarea>
                 <p class="form_error--message">
@@ -106,10 +107,10 @@
             </div>
             <div class="form__group">
                 <div class="form__title">
-                    <h3 class="sell-form__header">販売価格</h3>
+                    <p class="sell-form__header">販売価格</p>
                 </div>
-                <span class="sell-form__price--display">¥</span>
-                <input class="form-input__price" type="text" name="price" placeholder="販売価格を入力してください" value="{{ old('price')}}" >
+                <!--<span class="sell-form__price--display">¥</span>-->
+                <input class="form-input__price" type="text" name="price" placeholder="¥" value="{{ old('price')}}" >
                 <p class="form_error--message">
                     @error('price')
                     {{ $message }}

@@ -16,7 +16,7 @@
                 <div class="purchase-item">
                     <img class="purchase-item__image" src="{{ asset('storage/images/item_image/'.$purchaseItem->item_image) }}" alt="">
                     <div class="purchase-item__item">
-                        <h3 class="purchase-item__name">{{ $purchaseItem->item_name }}</h3>
+                        <h1 class="purchase-item__name">{{ $purchaseItem->item_name }}</h1>
                         <div class="purchase-item__price">
                             <span class="purchase-item__price--display">¥</span>
                             <p class="purchase-item__price--price">{{ number_format($purchaseItem->price) }}</p>
@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="payment-method">
-                    <h4 class="payment-method__header">支払い方法</h4>
+                    <h2 class="payment-method__header">支払い方法</h2>
                     <div class="payment-method__wrapper">
                         <div class="payment-method__select">
                             <select id="payment-method-select" class="payment-method__select--input" name="payment_method">
@@ -42,9 +42,9 @@
                 </div>
                 <div class="shipping-address">
                     <div class="shipping-address__header-area">
-                        <h4 class="shipping-address__header">配送先</h4>
+                        <h2 class="shipping-address__header">配送先</h2>
                         <div class="link__text">
-                            <a class="link__text--address" href="{{ route('purchase.address.edit', ['item_id' => $purchaseItem->id]) }}">変更する</a>
+                            <a class="link__text--address" href="{{ route('purchase.address.edit', ['item_id' => $purchaseItem->id]) }}">更新する</a>
                         </div>
                     </div>
                     <div class="shipping-address__wrapper">

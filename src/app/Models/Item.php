@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Condition;
 use App\Models\Order;
-use App\Models\Like;
+//use App\Models\Like;
 use App\Models\Comment;
 
 class Item extends Model

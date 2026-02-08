@@ -45,7 +45,7 @@
                 <input class="form__input" type="text" name="shipping_building" id="shipping_building" placeholder="例：中央マンション101" value="{{ old('shipping_building')}}">
             </div>
             <div class="button-area">
-                <button class="button__large" type="submit">変更する</button>
+                <button class="button__large" type="submit">更新する</button>
             </div>
         </form>
     </div>

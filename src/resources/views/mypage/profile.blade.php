@@ -26,13 +26,15 @@
                 <div class="user-profile_wrapper">
                     <div class="user-profile__image--profile">
                         @if($mode === 'edit' && $profile && $profile->profile_image)
-                        <img class="user-profile__image--image" src="{{ asset('storage/images/user_image/'.$profile->profile_image) }}" alt="ユーザー画像" >
+                        <img id="preview" class="user-profile__image--image" src="{{ asset('storage/images/user_image/'.$profile->profile_image) }}" alt="ユーザー画像" >
                         @else
-                        <img class="user-profile__image--image" src="{{ asset('images/Ellipse1.png') }}" alt="ダミー画像">
+                        <img id="preview" class="user-profile__image--image" src="{{ asset('images/Ellipse1.png') }}" alt="ダミー画像">
                         @endif
                     </div>
                     <div class="image__upload">
-                        <input class="button__white--mini" type="file" name="profile_image" required>
+                        <label for="profile_image" class="button__white--mini">画像を選択する</label>
+                        <input id="profile_image" class="file-input-hidden" type="file" name="profile_image"
+                            @if($mode === 'create') required @endif>
                     </div>
                 </div>
                 <p class="form_error--message">
@@ -90,4 +92,18 @@
         </form>
     </div>
 </div>
+
+<script>
+document.getElementById('profile_image').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        document.getElementById('preview').src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+});
+</script>
+
 @endsection

@@ -82,12 +82,13 @@
     padding-left: 40px;
 }
 
-.button__white--mini {
+/*.button__white--mini {
     font-size: 14px;
     width:100%;
 }
+*/
 
-.button__white--mini::file-selector-button {
+.button__white--mini {
     display: block;
     width:180px;
     height: 50px;
@@ -102,7 +103,10 @@
     border-radius: 10px;
     text-decoration: none;
     cursor: pointer;
-    margin-bottom: 5px;
+}
+
+.file-input-hidden {
+    display: none;
 }
 
 @media screen and (max-width:850px){

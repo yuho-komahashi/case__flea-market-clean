@@ -11,7 +11,7 @@ use App\Models\Profile;
 use App\Models\Item;
 use App\Models\Order;
 use App\Models\Comment;
-use App\Models\Like;
+//use App\Models\Like;
 
 class User extends Authenticatable implements MustVerifyEmail
 {

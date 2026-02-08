@@ -3,47 +3,73 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+//use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\Category;
 use App\Models\Condition;
 use App\Models\Comment;
-use App\Models\Like;
+//use App\Models\Like;
 use App\Http\Requests\CommentRequest;
 use App\Http\Requests\ExhibitionRequest;
 
 class ItemController extends Controller
 {
+    //商品一覧表示＋検索機能
     public function index(Request $request)
     {
-        $isLoggedIn = Auth::check();
+        $isLoggedIn = Auth::check();//ログイン状態を判定（つまり、ログインしていないときは全商品表示）
+
+        // タブ（デフォルトは recommend）
         $tab = $request->query('tab');
 
-        if (!$tab) {
-            if($isLoggedIn){
-                return redirect()->route('items.index', ['tab' => 'mylist']);
+        if($tab !== 'recommend' && $tab !== 'mylist'){
+            $tab = $isLoggedIn ? 'mylist' : 'recommend';
+        }
+
+        // 検索キーワード
+        $keyword = $request->query('keyword');
+
+        // ベースクエリ Itemテーブルを使った空のクエリを作成
+        $query = Item::query();
+
+        // 自分の商品は除外（ログイン時のみ）
+        if($isLoggedIn){
+            //sellerIdがログインユーザーではない商品に絞り込みという条件をqueryに追加
+            $query->where('seller_id', '!=', Auth::id());
+        }
+
+        // タブごとの絞り込み
+        if($tab === 'mylist') {
+
+            if($isLoggedIn){//ログインしている場合
+                // ログインユーザーがいいねした商品のみに絞るという条件をqueryに追加
+                $query->whereIn('id', function($sub){
+                    $sub->select('item_id')
+                    ->from('likes')
+                    ->where('user_id', Auth::id());
+                });
+
             } else {
-                $tab = 'recommend';
+                // 未ログイン時は空のコレクションを返す
+                $items = collect();
+                return view('index', compact('items','tab','keyword'));
             }
         }
 
-        $items = collect();
-        $keyword = null;
-
-        if($tab === 'recommend'){
-            $items = $isLoggedIn //ログイン済の場合
-                ? Item::where('seller_id', '!=', Auth::id())->get()
-                : Item::all();
-        } elseif ($tab === 'mylist' && $isLoggedIn) {//マイリストタブ選択かつログインの場合
-            $items = Auth::user()->likedItems()->get();
-        } else {
-            return redirect('/');
+        //検索
+        if(!empty($keyword)){
+            //keywordがあったら、keywordで絞るという条件をqueryに追加
+            $query->where('item_name', 'like', "%{$keyword}%");
         }
+
+        //最終結果
+        $items = $query->get();//←ここで初めてDBにアクセスし、SQLが実行されて実際のデータが$itemsに入る
 
         return view('index', compact('items','tab','keyword'));
     }
 
+    /*商品検索機能・・・indexにまとめたので不要
     public function search(Request $request)
     {
         $keyword = $request->keyword;
@@ -73,7 +99,9 @@ class ItemController extends Controller
 
         return view('index', compact('items','tab','keyword'));
     }
+    */
 
+    //商品詳細表示
     public function show($itemId)
     {
         $item = Item::with('categories','condition','comments.user.profile','likedByUsers')->findOrFail($itemId);
@@ -83,13 +111,22 @@ class ItemController extends Controller
         return view('items.detail',compact('item','categories','conditions'));
     }
 
+    //いいね増減
     public function toggleLike(Item $item)
     {
         $user = auth()->user();
 
+        // ★ 自分の商品にはいいねできない
+        if($item->seller_id === $user->id){
+            return back()->with('error', '自分で出品した商品にはいいねできません');
+        }
+
+        // いいねしていない → いいねする
         if(!$item->likedByUsers->contains($user)){
             $item->likedByUsers()->attach($user->id);
-        }else{
+        }
+        // いいね済み → いいね解除
+        else{
             $item->likedByUsers()->detach($user->id);
         }
         return redirect()->route('items.show', $item->id);
@@ -103,6 +140,7 @@ class ItemController extends Controller
         return redirect('/login');
     }
 
+    //コメント保存
     public function storeComment(CommentRequest $request, Item $item)
     {
         $item->comments()->create([
@@ -113,6 +151,7 @@ class ItemController extends Controller
         return redirect()->route('items.show', ['itemId' => $item->id]);
     }
 
+    //商品出品画面表示
     public function create()
     {
         $categories = Category::all();
@@ -122,6 +161,7 @@ class ItemController extends Controller
         return view('items.exhibition',compact('categories','conditions','selectedCategories'));
     }
 
+    //商品出品（登録）
     public function store(ExhibitionRequest $request)
     {
         $path = null;

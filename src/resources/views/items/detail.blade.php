@@ -17,7 +17,7 @@
         </div>
         <div class="item-info_wrapper">
             <div class="item-info__header">
-                <h2 class="item-info__name">{{ $item->item_name }}</h2>
+                <h1 class="item-info__name">{{ $item->item_name }}</h1>
                 <p class="item-info__brand">{{ $item->brand }}</p>
                 <div class="item-info__price-area">
                     <span class="item-info__price--display">¥</span>
@@ -70,26 +70,28 @@
                 </div>
             </div>
             <div class="item-info__detail">
-                <h3 class="item-info__detail--header">商品説明</h3>
+                <h2 class="item-info__detail--header">商品説明</h2>
                 <p class="item-info__detail--description">{{ $item->description }}</p>
-                <h3 class="item-info__detail--header">商品情報</h3>
-                <div class="item-info__information">
-                    <p class="item-info__information--header">カテゴリー</p>
-                    @foreach($item->categories as $category)
-                    <div class="item-info__icon">
-                        <p class="item-info__icon--gray">{{ $category->category_name }}</p>
+                <h2 class="item-info__detail--header">商品情報</h2>
+                <div class="item-info__information-group">
+                    <div class="item-info__information">
+                        <p class="item-info__information--header">カテゴリー</p>
+                        <div class="item-info__icon">
+                            @foreach($item->categories as $category)
+                            <p class="item-info__icon--gray">{{ $category->category_name }}</p>
+                            @endforeach
+                        </div>
                     </div>
-                    @endforeach
-                </div>
-                <div class="item-info__information">
-                    <p class="item-info__information--header">商品の状態</p>
-                    <div class="item-info__icon">
-                        <p class="item-info__icon--white">{{ $item->condition->level }}</p>
+                    <div class="item-info__information">
+                        <p class="item-info__information--header">商品の状態</p>
+                        <div class="item-info__icon">
+                            <p class="item-info__icon--white">{{ $item->condition->level }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="item-info__comment">
-                    <h3 class="item-info__comment--header">コメント（{{ $commentCount  }}）</h3>
+                    <h2 class="item-info__comment--header">コメント（{{ $commentCount  }}）</h2>
                     @foreach($item->comments as $comment)
                     <div class="item-info__comment--user">
                         <img class="item-info__comment--image" src="{{ asset('storage/images/user_image/'.$comment->user->profile->profile_image) }}" alt="ユーザー画像">

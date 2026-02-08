@@ -14,7 +14,7 @@
             <h1 class="title">ログイン</h1>
         </div>
 
-        <form class="login-form" action="{{ route('login.post') }}" method="post">
+        <form class="login-form" action="{{ route('login.post') }}" method="post" novalidate>
             @csrf
             <input type="hidden" name="redirect_to" value="{{ url()->previous() }}">
             <div class="form__group">

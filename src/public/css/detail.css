@@ -106,9 +106,17 @@
     outline: none;
 }
 
+.item-info__information-group{/* ← 追加 */
+    display: flex;
+    flex-wrap:wrap;/* はみ出し防止 */
+    gap:40px;
+    margin-bottom:20px;
+}
+
 .item-info__information{
     display: flex;
-    align-items: baseline;
+    align-items: center;
+    gap: 20px;
 }
 
 .item-info__information:last-child{
@@ -116,10 +124,18 @@
 }
 
 .item-info__information--header{
+    min-width: 120px;/* 見出しの幅を固定して整列 */
     font-size: 24px;
     font-weight: bold;
-    margin-right: 60px;
-    margin-bottom: 20px;
+    margin-right: 20px;
+    align-self: flex-start;
+        /* 上付きにする */
+}
+
+.item-info__icon{ /* ← 追加 */
+    display:flex;
+    flex-wrap:wrap;/* ← 折り返しOK */
+    gap:10px;/* ← タグ同士の隙間 */
 }
 
 .item-info__icon--gray{
