@@ -26,10 +26,13 @@ class DatabaseSeeder extends Seeder
 
         $userIds = (new UsersTableSeeder())->run();
         $itemIds = (new ItemsTableSeeder())->run($userIds);
+
         (new ProfilesTableSeeder())->run($userIds);
         (new LikesTableSeeder())->run($userIds,$itemIds);
         (new CommentsTableSeeder())->run($userIds,$itemIds);
         (new OrdersTableSeeder())->run($userIds, $itemIds);
+        (new MessagesTableSeeder())->run($userIds, $itemIds);//追加
+        (new ReviewsTableSeeder())->run($userIds, $itemIds);//追加
 
     }
 }

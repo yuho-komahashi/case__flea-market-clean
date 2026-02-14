@@ -1,4 +1,4 @@
-# フリマアプリ case\_\_flea-market
+# フリマアプリ case\_\_flea-market（プロテスト提出用）
 
 ## 環境構築
 
@@ -56,9 +56,144 @@
 - mailhog
 - JavaScript
 
+## テーブル仕様
+
+#### ■users
+
+| カラム名          | 型              | primary key | unique key | not null | foreign key |
+| ----------------- | --------------- | ----------- | ---------- | -------- | ----------- |
+| id                | unsigned bigint | 〇          |            | 〇       |             |
+| name              | varchar(20)     |             |            | 〇       |             |
+| email             | varchar(255)    |             |            | 〇       |             |
+| email_verified_at | timestamp       |             |            |          |             |
+| password          | varchar(255)    |             |            | 〇       |             |
+| rememberToken     | varchar(100)    |             |            |          |             |
+| created_at        | timestamp       |             |            |          |             |
+| updated_at        | timestamp       |             |            |          |             |
+
+#### ■profiles
+
+| カラム名      | 型              | primary key | unique key | not null | foreign key |
+| ------------- | --------------- | ----------- | ---------- | -------- | ----------- |
+| id            | unsigned bigint | 〇          |            | 〇       |             |
+| user_id       | unsigned bigint |             |            | 〇       | users(id)   |
+| profile_image | varchar(255)    |             |            | 〇       |             |
+| postcode      | varchar(255)    |             |            | 〇       |             |
+| address       | varchar(255)    |             |            | 〇       |             |
+| building      | varchar(255)    |             |            |          |             |
+| created_at    | timestamp       |             |            |          |             |
+| updated_at    | timestamp       |             |            |          |             |
+
+#### ■items
+
+| カラム名     | 型              | primary key | unique key | not null | foreign key    |
+| ------------ | --------------- | ----------- | ---------- | -------- | -------------- |
+| id           | unsigned bigint | 〇          |            | 〇       |                |
+| seller_id    | unsigned bigint |             |            | 〇       | users(id)      |
+| item_image   | varchar(255)    |             |            | 〇       |                |
+| condition_id | unsigned bigint |             |            | 〇       | conditions(id) |
+| item_name    | varchar(255)    |             |            | 〇       |                |
+| brand        | varchar(255)    |             |            |          |                |
+| description  | varchar(255)    |             |            | 〇       |                |
+| price        | int             |             |            | 〇       |                |
+| item_status  | varchar(255)    |             |            | 〇       |                |
+| created_at   | timestamp       |             |            |          |                |
+| updated_at   | timestamp       |             |            |          |                |
+
+#### ■categories
+
+| カラム名      | 型              | primary key | unique key | not null | foreign key |
+| ------------- | --------------- | ----------- | ---------- | -------- | ----------- |
+| id            | unsigned bigint | 〇          |            | 〇       |             |
+| category_name | varchar(255)    |             |            | 〇       |             |
+| created_at    | timestamp       |             |            |          |             |
+| updated_at    | timestamp       |             |            |          |             |
+
+#### ■conditions
+
+| カラム名   | 型              | primary key | unique key | not null | foreign key |
+| ---------- | --------------- | ----------- | ---------- | -------- | ----------- |
+| id         | unsigned bigint | 〇          |            | 〇       |             |
+| level      | varchar(255)    |             |            | 〇       |             |
+| created_at | timestamp       |             |            |          |             |
+| updated_at | timestamp       |             |            |          |             |
+
+#### ■likes
+
+| カラム名   | 型              | primary key | unique key | not null | foreign key |
+| ---------- | --------------- | ----------- | ---------- | -------- | ----------- |
+| id         | unsigned bigint | 〇          |            | 〇       |             |
+| user_id    | unsigned bigint |             |            | 〇       | users(id)   |
+| item_id    | unsigned bigint |             |            | 〇       | items(id)   |
+| created_at | timestamp       |             |            |          |             |
+| updated_at | timestamp       |             |            |          |             |
+
+#### ■comments
+
+| カラム名        | 型              | primary key | unique key | not null | foreign key |
+| --------------- | --------------- | ----------- | ---------- | -------- | ----------- |
+| id              | unsigned bigint | 〇          |            | 〇       |             |
+| user_id         | unsigned bigint |             |            | 〇       | users(id)   |
+| item_id         | unsigned bigint |             |            | 〇       | items(id)   |
+| comment_content | varchar(255)    |             |            | 〇       |             |
+| created_at      | timestamp       |             |            |          |             |
+| updated_at      | timestamp       |             |            |          |             |
+
+#### ■orders
+
+| カラム名          | 型              | primary key | unique key | not null | foreign key |
+| ----------------- | --------------- | ----------- | ---------- | -------- | ----------- |
+| id                | unsigned bigint | 〇          |            | 〇       |             |
+| buyer_id          | unsigned bigint |             |            | 〇       | users(id)   |
+| item_id           | unsigned bigint |             |            | 〇       | items(id)   |
+| payment_method    | varchar(255)    |             |            | 〇       |             |
+| shipping_postcode | varchar(255)    |             |            | 〇       |             |
+| shipping_address  | varchar(255)    |             |            | 〇       |             |
+| shipping_building | varchar(255)    |             |            |          |             |
+| status            | varchar(255)    |             |            | 〇       |             |
+| created_at        | timestamp       |             |            |          |             |
+| updated_at        | timestamp       |             |            |          |             |
+
+#### ■category_item
+
+| カラム名    | 型              | primary key | unique key | not null | foreign key    |
+| ----------- | --------------- | ----------- | ---------- | -------- | -------------- |
+| id          | unsigned bigint | 〇          |            | 〇       |                |
+| category_id | unsigned bigint |             |            | 〇       | categories(id) |
+| item_id     | unsigned bigint |             |            | 〇       | items(id)      |
+| created_at  | timestamp       |             |            |          |                |
+| updated_at  | timestamp       |             |            |          |                |
+
+#### ■messages（プロテスト用に追加）
+
+| カラム名   | 型              | primary key | unique key | not null | foreign key |
+| ---------- | --------------- | ----------- | ---------- | -------- | ----------- |
+| id         | unsigned bigint | 〇          |            | 〇       |             |
+| user_id    | unsigned bigint |             |            | 〇       | users(id)   |
+| item_id    | unsigned bigint |             |            | 〇       | items(id)   |
+| body       | text            |             |            | 〇       |             |
+| image      | varchar(255)    |             |            |          |             |
+| is_read    | boolean         |             |            | 〇       |             |
+| created_at | timestamp       |             |            |          |             |
+| updated_at | timestamp       |             |            |          |             |
+
+#### ■reviews（プロテスト用に追加）
+
+| カラム名    | 型              | primary key | unique key | not null | foreign key |
+| ----------- | --------------- | ----------- | ---------- | -------- | ----------- |
+| id          | unsigned bigint | 〇          |            | 〇       |             |
+| reviewer_id | unsigned bigint |             |            | 〇       | users(id)   |
+| reviewee_id | unsigned bigint |             |            | 〇       | users(id)   |
+| item_id     | unsigned bigint |             |            | 〇       | items(id)   |
+| score       | tinyint         |             |            | 〇       |             |
+| created_at  | timestamp       |             |            |          |             |
+| updated_at  | timestamp       |             |            |          |             |
+
 ### ER図
 
-![ER図](ER.png)
+![ER図](er0214.png)
+
+## ページ情報
 
 ### URL
 
@@ -68,34 +203,44 @@
 
 ### 主なページURL
 
+#### 模擬案件共通
+
 - 商品一覧画面（トップ画面）：http://localhost/
 - ログイン画面：http://localhost/login
 - 会員登録画面：http://localhost/register
 - 商品詳細画面：http://products/item/{item_id}
-- プロフィール画面：http://localhost/mypage  
-  ※その他については、提出資料の基本設計書をご参照ください
+- プロフィール画面：http://localhost/mypage
+
+#### プロテスト用追加
+
+- プロフィール画面_取引中の商品：http://localhost/mypage?page=trading
+- 取引中チャット画面：http://localhost/mypage/trading/{order}/chat
 
 ### テストユーザー情報(Seederで生成されるユーザー一覧)
 
-- user_A  
+- user_A（出品者・購入者）  
   ユーザー名：山口一郎  
   メールアドレス：user_a@example.com  
   パスワード：passyama11
 
-- user_B  
+- user_B（出品者・購入者）  
   ユーザー名：伊藤雅子  
   メールアドレス：user_b@example.com  
   パスワード：passito22
 
-- user_C  
+- user_C（設定なし・非取引ユーザー）  
   ユーザー名：坂本太郎  
   メールアドレス：user_c@example.com  
   パスワード：sakapass33
 
-- user_D  
+- user_D（設定なし・非取引ユーザー）  
   ユーザー名：木村陽子  
   メールアドレス：user_d@example.com  
   パスワード：yokopass44
+
+※（プロテスト用）本アプリではユーザーA・Bを出品者、ユーザーCを非取引ユーザーとして使用しています。  
+模擬案件ではユーザーDも存在していたため、取引に関係しない「いいね」「コメント」などのデータにはユーザーDが残っています。  
+今回の課題要件（3ユーザー構成）には影響しないため、そのまま使用しています。
 
 ### 補足
 
@@ -115,7 +260,7 @@
 - .gitignore の初期設定で storage/ 配下は Git から除外されるため、storage/app/public/.gitignore を修正し、画像フォルダ（images/）を除外対象から外しました。
 - プロジェクト環境構築後に、シンボリックリンクを作成してください。
   > php artisan storage:link
-- コーチテックロゴ、いいねアイコン、コメントアイコン、プロフィールページのダミー画像（ユーザー画像）は素材のため、src/public/imagesに保存しています。
+- コーチテックロゴ、いいねアイコン、コメントアイコン、プロフィールページのダミー画像（ユーザー画像）、評価の★アイコンは素材のため、src/public/imagesに保存しています。
 
 #### ビューの配置について
 
@@ -129,74 +274,10 @@
 
 - 本アプリケーションでは Laravel Fortify を使用して認証機能を構築しています。  
   そのため、usersテーブルには「remember*token」や「two_factor*\*」などのカラムが含まれていますが、現時点では一部のカラムは未使用です。  
-  テスト実行時に必要なため「remember_token」は追加済みです。
+  テスト実行時に必要だったため「remember_token」は追加済みです。
 
-## 単体テスト
-
-### テスト環境
-
-- テスト実行時は「.env.testing」を使用し、開発用DBとは分離された「demo_test」データベースを使用しています。  
-  テストにあたり下記を実行および、補足をご確認ください。
-
-1. Mysqlにログインし、テスト用データベース（demo_test）の作成
-
-   > docker-compose exec mysql bash
-   > mysql -u root -p ※password:root
-   > CREATE DATABASE demo_test;
-
-2. テスト用.envファイル作成
-
-- 「.env」ファイルをコピーして名前を「.env.testing」に修正
-
-  > docker-compose exec php bash  
-  > cp .env .env.testing
-
-- 冒頭のAPP\_部分を下記に修正（APP_ENV,APP_KEYの2か所）
-
-  > APP_NAME=Laravel  
-  > APP_ENV=testing  
-  > APP_KEY=  
-  > APP_DEBUG=true  
-  > APP_URL=http://localhost
-
-- データベースの接続情報を修正（DB_DATABASE,DB_USERNAME,DB_PASSWORDの3か所）
-  > DB_CONNECTION=mysql  
-  > DB_HOST=mysql  
-  > DB_PORT=3306  
-  > DB_DATABASE=demo_test  
-  > DB_USERNAME=root  
-  > DB_PASSWORD=root
-
-3. キャッシュクリア および テスト用のアプリケーションキー作成
-
-   > php artisan config:clear  
-   > php artisan key:generate --env=testing
-   - 通常はキーは自動生成されますが、環境によっては .env.testing に反映されない場合があります。  
-     その際は php artisan tinker でキーを確認し、手動で貼り付けてください
-
-4. テスト用テーブルの作成
-
-   > php artisan migrate --env=testing
-
-5. オートロードを設定
-   > composer dump-autoload
-
-- 補足：教材やこれまでの確認テスト同様、このプロジェクトは src/ 配下にモデル・コントローラー・Factoryを配置していますが、単体テスト時にエラーが発生しましたので、Laravel標準仕様に沿うため、オートロード設定が必要です。Laravel に認識させるため、テスト前にコマンドを実行してください。
-
-6. テスト実行
-
-- 本プロジェクトでは、開発用DBとテスト用DBを明確に分離するため、以下のコマンドでテストを実行してください。  
-  ※.env.testing を作成済みですが、環境切り替えの都合上この指定が必要です。
-  > APP_ENV=testing php artisan test
-
-#### テスト関連　補足
-
-- 支払い方法の選択による小計表示の変更は、JavaScriptによってフロントエンドで動的に反映される仕様です。  
-  この挙動はLaravelのFeatureTestでは検証できないため、テスト対象外としています（手動での動作は確認済）。
-  なお、支払い方法の選択肢の表示や初期状態（未選択）の確認はFeatureTestで実施済みです。
-
-- メール送信は Mailhog を使用して確認しています。  
-  FeatureTestでは、メール送信のトリガーと認証リンクのアクセスによるリダイレクトを確認しています。  
-  また、実際のメール受信・クリック操作は Mailhog上で手動確認しています。
+#### その他
+- 機能要件についてはすべて実装済ですが、残念ながら時間不十分のため、細部まで確認しきれていない箇所が多々あると思われます。ご了承ください。  
+#### ※単体テストについては模擬案件用、プロテストでは実施なしのため削除
 
 以上

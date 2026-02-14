@@ -35,8 +35,14 @@
     display: block;
     font-size: 36px;
     font-weight: bold;
+    text-align: center;
     margin-left: 55px;
+    margin-bottom: 8px;
 
+}
+
+.review-stars{
+    margin-left: 55px;
 }
 
 .button-area__profile{
@@ -105,9 +111,11 @@
     cursor: pointer;
 }
 
+/*
 .file-input-hidden {
     display: none;
 }
+*/
 
 @media screen and (max-width:850px){
 
@@ -126,5 +134,10 @@
     .button__white{
         width:100%;
         font-size: 20px;
+    }
+
+    .review-stars{
+        margin-left: 30px;
+        white-space: nowrap; /* ← 折り返し禁止 */
     }
 }

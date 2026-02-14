@@ -11,7 +11,8 @@ use App\Models\Profile;
 use App\Models\Item;
 use App\Models\Order;
 use App\Models\Comment;
-//use App\Models\Like;
+use App\Models\Message;
+use App\Models\Review;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -49,26 +50,49 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function profile()/*親・1対1*/
     {
-        return $this->hasOne(Profile::class);/*ひとりのユーザーにはひとつのプロフィールしか存在しない*/
+        return $this->hasOne(Profile::class);
+        //ひとりのユーザーにはひとつのプロフィールしか存在しない
     }
 
     public function items()/*親・1対多*/
     {
-        return $this->hasMany(Item::class);/*ひとりのユーザーは複数のアイテムを出品できる*/
+        return $this->hasMany(Item::class);
+        //ひとりのユーザーは複数のアイテムを出品できる
     }
 
     public function orders()/*親・1対多*/
     {
-        return $this->hasMany(Order::class);/*ひとりのユーザーは複数のオーダーができる*/
+        return $this->hasMany(Order::class);
+        //ひとりのユーザーは複数のオーダーができる
     }
 
     public function comments()/*親・1対多*/
     {
-        return $this->hasMany(Comment::class);/*ひとりのユーザーは複数のコメントができる*/
+        return $this->hasMany(Comment::class);
+        //ひとりのユーザーは複数のコメントができる
     }
 
     public function likedItems()/*親・多対多*/
     {
-        return $this->belongsToMany(Item::class, 'likes','user_id', 'item_id')->withTimestamps();/*ひとりのユーザーは複数のいいねができる*/
+        return $this->belongsToMany(Item::class, 'likes','user_id', 'item_id')->withTimestamps();
+        //ひとりのユーザーは複数のいいねができる
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+        //ひとりのユーザーは複数のメッセージを送れる
+    }
+
+    public function reviewsGiven()
+    {
+        return $this->hasMany(Review::class, 'reviewer_id');
+        //ひとりのユーザーは複数の評価ができる
+    }
+
+    public function reviewsReceived()
+    {
+        return $this->hasMany(Review::class, 'reviewee_id');
+        //ひとりのユーザーは複数の評価を受け取れる
     }
 }

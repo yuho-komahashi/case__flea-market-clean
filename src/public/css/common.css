@@ -20,15 +20,18 @@ textarea::placeholder {
     font-size: 16px;
 }
 
+.file-input-hidden {
+    display: none;
+}
+
 .form_error--message {
     font-size: 18px;
     color: #ff5555;
     margin-top: 10px;
 }
 
-@media screen and (max-width:850px) {
-    .content{
+@media screen and (max-width: 850px) {
+    .content {
         max-width: 850px;
     }
-
 }

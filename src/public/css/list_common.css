@@ -7,18 +7,18 @@
 }
 
 /* タブボタン */
-.tab-label{
+.tab-label {
     display: inline-block;
-    width:155px;
-    background:#ffffff;
+    width: 220px;
+    background: #ffffff;
     cursor: pointer;
     text-align: center;
     font-size: 24px;
     font-weight: bold;
-    padding: 5px;
+    padding: 8px;
     margin-right: 20px;
     text-decoration: none;
-    color:#000000;
+    color: #000000;
 }
 
 .tab-label.active {
@@ -40,7 +40,7 @@
     background: #5f5f5f;
 }
 
-.item-list__content{
+.item-list__content {
     margin-top: 75px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
@@ -48,22 +48,53 @@
     position: relative;
 }
 
-.item-list__image{
-    width:290px;
-    height:290px;
-    object-fit: cover;/* アスペクト比を維持しつつトリミング */
-    margin-bottom: 8px;
+.item-list__group--image {
+    position: relative;
 }
 
-.item-list__label{
+.item-list__image {
+    width: 290px;
+    height: 290px;
+    object-fit: cover; /* アスペクト比を維持しつつトリミング */
+    margin-bottom: 8px;
+    border-radius: 4px;
+}
+
+.item-list__label {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 5px;
 }
 
-.sold-label{
+.tab-badge {
+    background-color: #ff5555;
+    color: #ffffff;
+    padding: 3px 8px 1px;
+    border-radius: 10px;
+    font-size: 22px;
+    font-weight: bold;
+    margin-left: 4px;
+    display: inline-block;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.item-badge {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    background-color: #ff5555;
+    color: #ffffff;
+    padding: 3px 6px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.sold-label {
     display: block;
-    width:80px;
+    width: 80px;
     height: 30px;
     padding: 5px;
     background-color: #ff5555;
@@ -87,7 +118,7 @@
     color: #000000;
 }
 
-@media screen and (max-width:850px){
+@media screen and (max-width: 850px) {
     .item-list__wrapper {
         display: flex;
         flex-wrap: wrap;
@@ -95,7 +126,13 @@
         padding: 65px 50px 0;
     }
 
-    .item-list__group{
+    .item-list__group {
         margin-left: 6%;
     }
+
+    .tab-label {
+        width: 220px;
+        margin-right: 0;
+    }
 }
+

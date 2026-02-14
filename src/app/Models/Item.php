@@ -8,8 +8,9 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Condition;
 use App\Models\Order;
-//use App\Models\Like;
 use App\Models\Comment;
+use App\Models\Message;
+use App\Models\Review;
 
 class Item extends Model
 {
@@ -29,31 +30,49 @@ class Item extends Model
 
     public function seller()/*子・1対多*/
     {
-        return $this->belongsTo(User::class);/*ひとつのアイテムはひとりのユーザーに出品される*/
+        return $this->belongsTo(User::class, 'seller_id');
+        //ひとつのアイテムはひとりのユーザーに出品される
     }
 
     public function categories()/*子・1対多*/
     {
-        return $this->belongsToMany(Category::class);/*ひとつのアイテムは複数のカテゴリーに属する*/
+        return $this->belongsToMany(Category::class);
+        //ひとつのアイテムは複数のカテゴリーに属する
     }
 
     public function condition()/*子・1対多*/
     {
-        return $this->belongsTo(Condition::class);/*ひとつのアイテムはひとつの状態に属する*/
+        return $this->belongsTo(Condition::class);
+        //ひとつのアイテムはひとつの状態に属する
     }
 
     public function order()/*親・1対1*/
     {
-        return $this->hasOne(Order::class);/*ひとつのアイテムにひとつのオーダーが紐づく*/
+        return $this->hasOne(Order::class);
+        //ひとつのアイテムにひとつのオーダーが紐づく
     }
 
     public function likedByUsers()/*親・1対多*/
     {
-        return $this->belongsToMany(User::class, 'likes')->withTimestamps();/*ひとつのアイテムに複数のいいねが存在する?*/
+        return $this->belongsToMany(User::class, 'likes')->withTimestamps();
+        //ひとつのアイテムに複数のいいねが存在する
     }
 
     public function comments()/*親・1対多*/
     {
-        return $this->hasMany(Comment::class);/*ひとつのアイテムに複数のコメントが存在する*/
+        return $this->hasMany(Comment::class);
+        //ひとつのアイテムに複数のコメントが存在する
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+        //ひとつのアイテムはたくさんのメッセージを紐づけられる
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+        //ひとつのアイテムはたくさんの評価を紐づけられる
     }
 }

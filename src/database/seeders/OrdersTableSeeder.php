@@ -10,17 +10,23 @@ use App\Models\Item;
 
 class OrdersTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run(array $userIds, array $itemIds)
     {
         DB::table('orders')->insert([
             [
-                'buyer_id'=> $userIds[0],
-                'item_id' => $itemIds[1],
+                'buyer_id'=> $userIds[1],//B
+                'item_id' => $itemIds[0],//Aの商品(腕時計)
+                'payment_method' => 'card',
+                'shipping_postcode' => '987-6543',
+                'shipping_address' => '大阪府北区梅田1-2-3',
+                'shipping_building' => '梅田タワー202',
+                'status' => 'trading',//paid→tradingに変更
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'buyer_id'=> $userIds[0],//A
+                'item_id' => $itemIds[8],//Bの商品（コーヒーミル）
                 'payment_method' => 'card',
                 'shipping_postcode' => '123-4567',
                 'shipping_address' => '東京都渋谷区千駄ヶ谷1-2-3',
@@ -30,27 +36,17 @@ class OrdersTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'buyer_id'=> $userIds[0],
-                'item_id' => $itemIds[8],
-                'payment_method' => 'card',
+                'buyer_id'=> $userIds[0],//A
+                'item_id' => $itemIds[5],//Bの商品（マイク）
+                'payment_method' => 'konbini',
                 'shipping_postcode' => '134-6788',
                 'shipping_address' => '東京都港区芝浦4-10-8',
                 'shipping_building' => 'オフィス芝浦1201',
-                'status' => 'paid',
+                'status' => 'trading',//paid→tradingに変更
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
-            [
-                'buyer_id'=> $userIds[1],
-                'item_id' => $itemIds[6],
-                'payment_method' => 'card',
-                'shipping_postcode' => '987-6543',
-                'shipping_address' => '大阪府北区梅田1-2-3',
-                'shipping_building' => '梅田タワー202',
-                'status' => 'paid',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
+            /*
             [
                 'buyer_id'=> $userIds[2],
                 'item_id' => $itemIds[0],
@@ -73,6 +69,7 @@ class OrdersTableSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            */
         ]);
     }
 }

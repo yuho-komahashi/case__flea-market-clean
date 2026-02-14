@@ -13,7 +13,7 @@
 
 <body>
     <header class="header">
-        <div class="header__inner--auth">
+        <div class="header__inner--logo-only">
             <div class="header__logo">
                 <a href="{{ route('items.index') }}">
                     <img class="logo" src="{{ asset('images/logo.svg') }}" alt="コーチテックフリーマーケット">

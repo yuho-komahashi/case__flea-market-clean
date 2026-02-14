@@ -20,7 +20,8 @@ class ItemsTableSeeder extends Seeder
     {
         $itemIds = [];
 
-        $itemData=[   //$itemIds[0]
+        //ユーザーA（userIds[0]）が出品
+        $itemData=[    //$itemIds[0]
             'seller_id'=> $userIds[0],
             'item_image' => 'MensClock.jpg',
             'condition_id' => 1,
@@ -28,14 +29,14 @@ class ItemsTableSeeder extends Seeder
             'brand' => 'Rolax',
             'description' => 'スタイリッシュなデザインのメンズ腕時計',
             'price' => '15000',
-            'item_status' => 'sold',
+            'item_status' => 'available',
         ];
         $item = Item::create($itemData);
         $item->categories()->attach([1,5]);//ファッション・メンズ
         $itemIds[] = $item->id;
 
         $itemData=[    //$itemIds[1]
-            'seller_id'=> $userIds[1],
+            'seller_id'=> $userIds[0],
             'item_image' => 'HardDisk.jpg',
             'condition_id' => 2,
             'item_name' => 'HDD',
@@ -49,7 +50,7 @@ class ItemsTableSeeder extends Seeder
         $itemIds[] = $item->id;
 
         $itemData=[    //$itemIds[2]
-            'seller_id'=> $userIds[3],
+            'seller_id'=> $userIds[0],
             'item_image' => 'Onions.jpg',
             'condition_id' => 3,
             'item_name' => '玉ねぎ3束',
@@ -63,21 +64,21 @@ class ItemsTableSeeder extends Seeder
         $itemIds[] = $item->id;
 
         $itemData=[    //$itemIds[3]
-            'seller_id'=> $userIds[2],
+            'seller_id'=> $userIds[0],
             'item_image' => 'LeatherShoes.jpg',
             'condition_id' => 4,
             'item_name' => '革靴',
             'brand' => null,
             'description' => 'クラシックなデザインの革靴',
             'price' => '4000',
-            'item_status' => 'available',
+            'item_status' => 'sold',
         ];
         $item = Item::create($itemData);
         $item->categories()->attach([1,5]);//ファッション・メンズ
         $itemIds[] = $item->id;
 
         $itemData=[    //$itemIds[4]
-            'seller_id'=> $userIds[1],
+            'seller_id'=> $userIds[0],
             'item_image' => 'Laptop.jpg',
             'condition_id' => 1,
             'item_name' => 'ノートPC',
@@ -90,8 +91,9 @@ class ItemsTableSeeder extends Seeder
         $item->categories()->attach([15]);//パソコン
         $itemIds[] = $item->id;
 
+        //ユーザーB（userIds[1]）が出品
         $itemData=[    //$itemIds[5]
-            'seller_id'=> $userIds[0],
+            'seller_id'=> $userIds[1],
             'item_image' => 'MusicMic.jpg',
             'condition_id' => 2,
             'item_name' => 'マイク',
@@ -105,14 +107,14 @@ class ItemsTableSeeder extends Seeder
         $itemIds[] = $item->id;
 
         $itemData=[    //$itemIds[6]
-            'seller_id'=> $userIds[3],
+            'seller_id'=> $userIds[1],
             'item_image' => 'ShoulderBag.jpg',
             'condition_id' => 3,
             'item_name' => 'ショルダーバッグ',
             'brand' => null,
             'description' => 'おしゃれなショルダーバッグ',
             'price' => '3500',
-            'item_status' => 'sold',
+            'item_status' => 'available',
         ];
         $item = Item::create($itemData);
         $item->categories()->attach([1,4]);//ファッション・レディース
@@ -133,7 +135,7 @@ class ItemsTableSeeder extends Seeder
         $itemIds[] = $item->id;
 
         $itemData=[    //$itemIds[8]
-            'seller_id'=> $userIds[2],
+            'seller_id'=> $userIds[1],
             'item_image' => 'CoffeeGrinder.jpg',
             'condition_id' => 1,
             'item_name' => 'コーヒーミル',
@@ -147,7 +149,7 @@ class ItemsTableSeeder extends Seeder
         $itemIds[] = $item->id;
 
         $itemData=[    //$itemIds[9]
-            'seller_id'=> $userIds[3],
+            'seller_id'=> $userIds[1],
             'item_image' => 'MakeUpSet.jpg',
             'condition_id' => 2,
             'item_name' => 'メイクセット',

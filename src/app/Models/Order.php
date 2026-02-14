@@ -31,6 +31,11 @@ class Order extends Model
         return $this->belongsTo(Item::class);/*1件のオーダーは1件のアイテムに属する（1点もの）*/
     }
 
-    //payment_methodはリレーション不要（他のモデルに属してないので）
+    public function messages()
+    {
+        return $this->hasMany(Message::class, 'item_id','item_id');
+        //この取引の item_id と同じ item_id のメッセージを全部取得する
+    }
 
+    //payment_methodはリレーション不要（他のモデルに属してないので）
 }

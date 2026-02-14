@@ -20,7 +20,7 @@ class LikesTableSeeder extends Seeder
         DB::table('likes')->insert([
             [
                 'user_id' => $userIds[0], //山口さんが
-                'item_id' => $itemIds[3], //革靴にいいね
+                'item_id' => $itemIds[8], //コーヒーミルにいいね
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -44,7 +44,7 @@ class LikesTableSeeder extends Seeder
             ],
             [
                 'user_id' => $userIds[3], //木村さんが
-                'item_id' => $itemIds[9], //メイクセットにいいね
+                'item_id' => $itemIds[2], //玉ねぎにいいねに修正
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
