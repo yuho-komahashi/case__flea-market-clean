@@ -8,9 +8,8 @@
 @section('title','商品一覧')
 
 @section('content')
-<div class="content">
+<div class="content content__list">
     <div class="item-list__wrapper">
-
         {{-- タブ --}}
         <div class="list-tab">
             <a href="{{ route('items.index', ['tab' => 'recommend', 'keyword' => $keyword]) }}" class="tab-label {{ $tab === 'recommend' ? 'active' : '' }}">おすすめ</a>{{-- タブ切り替え時に keyword を引き継ぐ --}}

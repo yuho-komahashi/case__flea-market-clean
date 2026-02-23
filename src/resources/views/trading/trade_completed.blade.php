@@ -13,7 +13,7 @@
             {{ $order->buyer->name }} さんとの取引が完了しました。
         </p>
 
-        <p class="information-text">商品名：{{ $order->item->name }}</p>
+        <p class="information-text">商品名：{{ $order->item->item_name }}</p>
         <p class="information-text">購入者：{{ $order->buyer->name }}</p>
 
         <p class="information-text">取引ページから詳細を確認できます。</p>

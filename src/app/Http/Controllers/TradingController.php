@@ -11,12 +11,13 @@ use App\Mail\TradeCompletedMail;
 
 class TradingController extends Controller
 {
+    //取引チャット画面表示
     public function show($orderId)
     {
         $order = Order::with([
-            'item',
+            'item',//orderはitem_idはあるが、その商品情報を使うためにitemモデルをロードする必要がある
             'buyer.profile',
-            'item.seller.profile'
+            'item.seller.profile'//出品者とプロフィールまで一気に取得
         ])->findOrFail($orderId);
 
         $me = Auth::user();
@@ -29,22 +30,30 @@ class TradingController extends Controller
         //商品
         $item = $order->item;
 
-        //メッセージ一覧
+        //既読処理 1.自分宛ての未読メッセージを既読にする
+        $order->messages()
+            ->where('user_id', '!=', $me->id)
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
+
+        //既読処理 2.チャット画面で表示する全メッセージ取得
         $messages = $order->messages()->orderBy('created_at')->get();
 
         //他の取引（サイドバー）※取引終了も含む
-        $otherOrders = Order::where(function($query) use($me){
-            $query->where('buyer_id', $me->id)
-                ->orWhereHas('item', function($q) use($me){
-                    $q->where('seller_id', $me->id);
-            });
-        })
+        $otherOrders = Order::whereIn('status',['paid','trading','completed'])
+            ->where(function($query) use($me){
+                $query->where('buyer_id', $me->id)
+                    ->orWhereHas('item', function($q) use($me){
+                        $q->where('seller_id', $me->id);
+                    });
+            })
             ->where('id', '!=', $order->id)
             ->with('item')
             ->get();
 
-        $messageDraft = session("message_draft_{$order->id}");//入力メッセージをセッションに保存
+        $messageDraft = session("message_draft_{$order->id}") ?? '';//入力メッセージをセッションに保存
 
+        //3.Bladeに渡す
         return view('trading.chat',compact(
             'order',
             'me',
@@ -53,7 +62,7 @@ class TradingController extends Controller
             'messages',
             'otherOrders',
             'messageDraft'
-            ));
+        ));
     }
 
     //取引完了アクション（orderのstatusをcompletedにする）
@@ -102,9 +111,14 @@ class TradingController extends Controller
         Review::create([
             'reviewer_id' => $reviewerId,
             'reviewee_id' => $revieweeId,
-            'item_id' => $order->item_id,
+            'order_id' => $order->id,
             'score' => $request->score,
         ]);
+
+        // 出品者が評価したら completed->fully_completed にする
+        if($me->id === $order->item->seller_id){
+            $order->update(['status'=> 'fully_completed']);
+        }
 
         return redirect()->route('items.index');
     }

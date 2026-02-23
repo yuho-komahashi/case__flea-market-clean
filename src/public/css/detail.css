@@ -144,16 +144,13 @@
     background-color: #d9d9d9;
     border-radius: 50px;
     font-size: 20px;
-    margin-right: 20px;
 }
 
 .item-info__icon--white {
     display: inline-block;
-    padding: 5px 30px;
     background: transparent;
     border-radius: 50px;
     font-size: 20px;
-    margin-right: 20px;
 }
 
 .item-info__comment--header {
@@ -200,7 +197,7 @@
     border-radius: 5px;
     outline: none;
     padding: 15px;
-    width:570px;
+    width:100%;
     margin-top: 10px;
 }
 
@@ -210,6 +207,10 @@
         padding: 50px;
     }
 
+    .item-info_wrapper{
+        width:100%;
+        padding: 30px;
+    }
     .item-detail__image{
         width:75%;
         height: 75%;
@@ -218,4 +219,5 @@
     .item-image__wrapper{
         text-align: center;
     }
+
 }

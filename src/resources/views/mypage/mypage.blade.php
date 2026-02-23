@@ -10,7 +10,7 @@
 
 @section('content')
     <div class="content">
-        <div class="item-list__wrapper">
+        <div class="item-list__wrapper content__list">
             <div class="purchase__message">
                 @if (session('message'))
                     <div class="purchase__message--success">
@@ -69,10 +69,18 @@
                         @foreach ($items as $item)
                             <div class="item-list__group">
                                 <div class="item-list__group--image">
-                                    <a href="{{ route('items.show', $item->id) }}">
-                                        <img class="item-list__image"
-                                            src="{{ asset('storage/images/item_image/' . $item->item_image) }}"
-                                            alt="{{ $item->item_name }}">
+
+                                    @if ($item->is_sold && $item->order)
+                                        {{-- 売却済み → 取引画面へ --}}
+                                        <a href="{{ route('trading.show', $item->order->id) }}">
+                                        @else
+                                            {{-- 未売却 → 商品詳細へ --}}
+                                            <a href="{{ route('items.show', $item->id) }}">
+                                    @endif
+
+                                    <img class="item-list__image"
+                                        src="{{ asset('storage/images/item_image/' . $item->item_image) }}"
+                                        alt="{{ $item->item_name }}">
                                     </a>
                                 </div>
                                 <div class="item-list__group--label">
@@ -87,12 +95,21 @@
                         @foreach ($orders as $order)
                             <div class="item-list__group">
                                 <div class="item-list__group--image">
-                                    <a href="{{ route('items.show', $order->item->id) }}">
-                                        <img class="item-list__image"
-                                            src="{{ asset('storage/images/item_image/' . $order->item->item_image) }}"
-                                            alt="{{ $order->item->item_name }}">
+
+                                    @if ($order->item->is_sold)
+                                        {{-- 売却済み → 取引画面へ --}}
+                                        <a href="{{ route('trading.show', $order->id) }}">
+                                        @else
+                                            {{-- 未売却 → 商品詳細へ --}}
+                                            <a href="{{ route('items.show', $order->item->id) }}">
+                                    @endif
+
+                                    <img class="item-list__image"
+                                        src="{{ asset('storage/images/item_image/' . $order->item->item_image) }}"
+                                        alt="{{ $order->item->item_name }}">
                                     </a>
                                 </div>
+
                                 <div class="item-list__group--label">
                                     <p class="item-list__label">{{ $order->item->item_name }}</p>
                                 </div>

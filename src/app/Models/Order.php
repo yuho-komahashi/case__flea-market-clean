@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Item;
+use App\Models\Message;
+use App\Models\Review;
 
 class Order extends Model
 {
@@ -33,8 +35,12 @@ class Order extends Model
 
     public function messages()
     {
-        return $this->hasMany(Message::class, 'item_id','item_id');
-        //この取引の item_id と同じ item_id のメッセージを全部取得する
+        return $this->hasMany(Message::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 
     //payment_methodはリレーション不要（他のモデルに属してないので）

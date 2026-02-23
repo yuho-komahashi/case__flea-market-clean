@@ -9,8 +9,6 @@ use App\Models\Category;
 use App\Models\Condition;
 use App\Models\Order;
 use App\Models\Comment;
-use App\Models\Message;
-use App\Models\Review;
 
 class Item extends Model
 {
@@ -62,17 +60,5 @@ class Item extends Model
     {
         return $this->hasMany(Comment::class);
         //ひとつのアイテムに複数のコメントが存在する
-    }
-
-    public function messages()
-    {
-        return $this->hasMany(Message::class);
-        //ひとつのアイテムはたくさんのメッセージを紐づけられる
-    }
-
-    public function reviews()
-    {
-        return $this->hasMany(Review::class);
-        //ひとつのアイテムはたくさんの評価を紐づけられる
     }
 }

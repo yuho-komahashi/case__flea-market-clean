@@ -32,7 +32,7 @@ class MessageController extends Controller
         //メッセージ保存
         $order->messages()->create([
             'user_id' => Auth::id(),
-            'body' => $request->message,
+            'message' => $request->new_message,
             'image' => $filename, // DB にはファイル名だけ保存
         ]);
 
@@ -49,11 +49,11 @@ class MessageController extends Controller
         }
 
         $request->validate([
-            'body' => 'required|string|max:400',
+            'message' => 'required|string|max:400',
         ]);
 
         $message->update([
-            'body' => $request->body,
+            'message' => $request->message,
         ]);
 
         return back();

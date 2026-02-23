@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Review;
+use App\Models\Order;
 
 class ReviewsTableSeeder extends Seeder
 {
@@ -12,12 +13,15 @@ class ReviewsTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run(array $userIds, array $itemIds)
+    public function run(array $userIds, array $orderIds)
     {
+        // 例として最初の注文を取得
+        $order = Order::find($orderIds[0]);
+
         Review::create([
-            'reviewer_id' => $userIds[1],// B が
-            'reviewee_id' => $userIds[0],// A を評価
-            'item_id'     => $itemIds[1],// A の商品(sold)
+            'reviewer_id' => $order->buyer_id, // 評価する側（購入者）
+            'reviewee_id' => $order->item->seller_id, // 評価される側（出品者）
+            'order_id'     => $order->id, // 取引に紐づく
             'score'       => 5,
         ]);
     }

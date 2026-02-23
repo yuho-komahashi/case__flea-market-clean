@@ -138,6 +138,6 @@
 
     .review-stars{
         margin-left: 30px;
-        white-space: nowrap; /* ← 折り返し禁止 */
+        white-space: nowrap; /* 折り返し禁止 */
     }
 }

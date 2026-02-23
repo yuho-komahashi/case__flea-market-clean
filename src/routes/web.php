@@ -79,21 +79,17 @@ Route::middleware('auth','verified')->group(function(){
     Route::patch('/mypage/profile/update', [MypageController::class, 'update'])->name('mypage.profile.update');//プロフィール編集画面更新
 
     Route::get('/mypage/trading/{order}/chat', [TradingController::class, 'show'])->name('trading.show');//取引チャット画面表示
+    Route::post('/mypage/trading/{order}/complete', [TradingController::class, 'complete'])->name('trading.complete');//取引完了アクション
     Route::post('/trading/{order}/rating', [TradingController::class, 'rating']) ->name('trading.rating');//評価モーダル送信
 
     Route::post('/mypage/trading/{order}/chat', [MessageController::class, 'store'])->name('message.store');//新規取引メッセージ送信
-    Route::post('/mypage/trading/{order}/complete', [TradingController::class, 'complete'])->name('trading.complete');//取引完了アクション
+    Route::put('/message/{message}', [MessageController::class, 'update'])->name('message.update');//既存メッセージ編集
+    Route::delete('/message/{message}', [MessageController::class, 'destroy'])->name('message.destroy');//既存メッセージ削除
 
     //チャットを入力した状態で他の画面に遷移しても、入力情報を保持できるよう下書き保存
     Route::post('/message/draft/', function (Request $request) {
         session([$request->key => $request->message]);
         return response()->json(['status' => 'ok']);
     })->name('message.draft');
-
-    Route::put('/message/{message}', [MessageController::class, 'update'])->name('message.update');//既存メッセージ編集
-    Route::delete('/message/{message}', [MessageController::class, 'destroy'])->name('message.destroy');//既存メッセージ削除
-
-
-    
 
 });

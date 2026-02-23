@@ -19,20 +19,32 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // 1. Users
+        $userIds = (new UsersTableSeeder())->run();
+
+        // 2. Profiles（ユーザーの基本情報）
+        (new ProfilesTableSeeder())->run($userIds);
+
+        // 3. Categories & Conditions（Items より先）
         $this->call([
             ConditionsTableSeeder::class,
             CategoriesTableSeeder::class,
         ]);
 
-        $userIds = (new UsersTableSeeder())->run();
+        // 4. Items（condition_id を使うので後）
         $itemIds = (new ItemsTableSeeder())->run($userIds);
 
-        (new ProfilesTableSeeder())->run($userIds);
+        // 5. Orders（1回だけ）（item_id を使うので後）
+        $orderIds = (new OrdersTableSeeder())->run($userIds, $itemIds);
+
+        // 6. Likes & Comments（item_id を使う）
         (new LikesTableSeeder())->run($userIds,$itemIds);
         (new CommentsTableSeeder())->run($userIds,$itemIds);
-        (new OrdersTableSeeder())->run($userIds, $itemIds);
-        (new MessagesTableSeeder())->run($userIds, $itemIds);//追加
-        (new ReviewsTableSeeder())->run($userIds, $itemIds);//追加
 
+        // 7. Messages（order_id を使う）
+        (new MessagesTableSeeder())->run($userIds, $orderIds);//itemIds→orderIesに修正
+
+        // 8. Reviews（order_id を使う）
+        (new ReviewsTableSeeder())->run($userIds, $orderIds);//itemIds→orderIesに修正
     }
 }

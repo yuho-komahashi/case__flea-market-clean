@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Order;
 
 class Message extends Model
 {
@@ -11,8 +13,8 @@ class Message extends Model
 
     protected $fillable = [
         'user_id',
-        'item_id',
-        'body',
+        'order_id', // item_id から修正
+        'message', // body から修正
         'image',
         'is_read'
     ];
@@ -22,8 +24,8 @@ class Message extends Model
         return $this->belongsTo(User::class);//ひとつのメッセージはひとりのユーザーに紐づく
     }
 
-    public function item()
+    public function order()// item() から修正
     {
-        return $this->belongsTo(Item::class);//ひとつのメッセージはひとつの商品に紐づく
+        return $this->belongsTo(Order::class);//ひとつのメッセージはひとつの取引に紐づく
     }
 }

@@ -56,22 +56,23 @@ class MypageController extends Controller
         $page = $request->get('page','sell');
 
         //最初に未読メッセージ総数を計算
-        $tradingItemIds = Order::whereIn('status', ['paid', 'trading'])
+        $tradingOrderIds = Order::whereIn('status', ['paid', 'trading', 'completed'])
             ->where(function($query) use($user){
                 $query->where('buyer_id', $user->id)
                     ->orWhereHas('item', function($q) use($user){
                         $q->where('seller_id', $user->id);
                     });
             })
-            ->pluck('item_id');
+            ->pluck('id');//order_idを取得
 
         //未読メッセージ総数
-        $totalUnread = Message::whereIn('item_id', $tradingItemIds)
+        $totalUnread = Message::whereIn('order_id', $tradingOrderIds)
                 ->where('is_read', false)
                 ->where('user_id', '!=', $user->id)
                 ->count();
 
         //タブごとの処理
+        //購入した商品
         if($page === 'buy'){
             $orders = Order::where('buyer_id',$user->id)
                 ->with('item')
@@ -81,12 +82,13 @@ class MypageController extends Controller
             //購入した商品のsold判定
             foreach($orders as $order){
                 $order->item->is_sold = $order->item->item_status === 'sold'
-                    || in_array($order->status,['paid','trading']);
+                    || in_array($order->status,['paid','trading','completed','fully_completed']);
             }
 
             return view('mypage.mypage',compact('orders','page','user','totalUnread'));
         }
 
+        //出品した商品
         if($page === 'sell'){
             $items = Item::where('seller_id',$user->id)
                 ->with('order')//追加
@@ -95,14 +97,15 @@ class MypageController extends Controller
 
             foreach($items as $item){
                 $item->is_sold = $item->item_status === 'sold'
-                    || ($item->order && in_array($item->order->status,['paid','trading']));
+                    || ($item->order && in_array($item->order->status,['paid','trading','completed','fully_completed']));
             }
 
             return view('mypage.mypage',compact('items','page','user','totalUnread'));
         }
 
+        //取引中の商品
         if($page === 'trading'){
-            $tradings = Order::whereIn('status', ['paid', 'trading'])
+            $tradings = Order::whereIn('status', ['paid', 'trading','completed'])
                 ->where(function($query) use($user){
                     //自分が購入者の場合
                     $query->where('buyer_id', $user->id)
@@ -118,7 +121,7 @@ class MypageController extends Controller
 
             //商品ごとの未読数を取得
             foreach($tradings as $trading){
-                $trading->unread_count = Message::where('item_id', $trading->item_id)
+                $trading->unread_count = Message::where('order_id', $trading->id)
                     ->where('is_read', false)
                     ->where('user_id', '!=', $user->id)
                     ->count();

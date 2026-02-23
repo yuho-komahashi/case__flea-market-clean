@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Order;
 
 class Review extends Model
 {
@@ -12,7 +14,7 @@ class Review extends Model
     protected $fillable = [
         'reviewer_id',
         'reviewee_id',
-        'item_id',
+        'order_id', //item_id から修正
         'score',
     ];
 
@@ -26,8 +28,8 @@ class Review extends Model
         return $this->belongsTo(User::class, 'reviewee_id');//評価対象者はユーザーに紐づく
     }
 
-    public function item()
+    public function order()
     {
-        return $this->belongsTo(Item::class);//ひとつの評価はひとつの商品に紐づく
+        return $this->belongsTo(Order::class);//ひとつの評価はひとつの取引に紐づく
     }
 }

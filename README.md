@@ -170,8 +170,8 @@
 | ---------- | --------------- | ----------- | ---------- | -------- | ----------- |
 | id         | unsigned bigint | 〇          |            | 〇       |             |
 | user_id    | unsigned bigint |             |            | 〇       | users(id)   |
-| item_id    | unsigned bigint |             |            | 〇       | items(id)   |
-| body       | text            |             |            | 〇       |             |
+| order_id    | unsigned bigint |             |            | 〇       | orders(id)   |
+| message       | text            |             |            | 〇       |             |
 | image      | varchar(255)    |             |            |          |             |
 | is_read    | boolean         |             |            | 〇       |             |
 | created_at | timestamp       |             |            |          |             |
@@ -184,14 +184,14 @@
 | id          | unsigned bigint | 〇          |            | 〇       |             |
 | reviewer_id | unsigned bigint |             |            | 〇       | users(id)   |
 | reviewee_id | unsigned bigint |             |            | 〇       | users(id)   |
-| item_id     | unsigned bigint |             |            | 〇       | items(id)   |
+| order_id     | unsigned bigint |             |            | 〇       | orders(id)   |
 | score       | tinyint         |             |            | 〇       |             |
 | created_at  | timestamp       |             |            |          |             |
 | updated_at  | timestamp       |             |            |          |             |
 
 ### ER図
 
-![ER図](er0214.png)
+![ER図](ER0223.png)
 
 ## ページ情報
 
@@ -276,8 +276,6 @@
   そのため、usersテーブルには「remember*token」や「two_factor*\*」などのカラムが含まれていますが、現時点では一部のカラムは未使用です。  
   テスト実行時に必要だったため「remember_token」は追加済みです。
 
-#### その他
-- 機能要件についてはすべて実装済ですが、残念ながら時間不十分のため、細部まで確認しきれていない箇所が多々あると思われます。ご了承ください。  
 #### ※単体テストについては模擬案件用、プロテストでは実施なしのため削除
 
 以上

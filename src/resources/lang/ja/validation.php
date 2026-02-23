@@ -118,8 +118,8 @@ return [
     'url'                  => ':attributeは、有効なURL形式で指定してください。',
     'uuid'                 => ':attributeは、有効なUUIDでなければなりません。',
 
-    'body.required' => '本文を入力してください。',
-    'body.max' => '本文は400文字以内で入力してください。',
+    'message.required' => '本文を入力してください。',
+    'message.max' => '本文は400文字以内で入力してください。',
 
 
     /*
@@ -151,6 +151,6 @@ return [
     */
 
     'attributes' => [
-        'body' => '本文',
+        'message' => '本文',
     ],
 ];

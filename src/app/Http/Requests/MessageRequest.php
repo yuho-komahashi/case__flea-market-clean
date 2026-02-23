@@ -24,7 +24,7 @@ class MessageRequest extends FormRequest
     public function rules()
     {
         return [
-            'message' => ['required','max:400'],
+            'new_message' => ['required','max:400'],
             'image' => ['mimes:jpeg,jpg,png'],
         ];
     }
@@ -32,8 +32,8 @@ class MessageRequest extends FormRequest
     public function messages()
     {
         return[
-            'message.required' => '本文を入力してください',
-            'message.max' => '本文は400文字以内で入力してください',
+            'new_message.required' => '本文を入力してください',
+            'new_message.max' => '本文は400文字以内で入力してください',
             'image.mimes' => '「.png」または「.jpeg」形式でアップロードしてください',
         ];
     }

@@ -29,7 +29,7 @@ class ItemsTableSeeder extends Seeder
             'brand' => 'Rolax',
             'description' => 'スタイリッシュなデザインのメンズ腕時計',
             'price' => '15000',
-            'item_status' => 'available',
+            'item_status' => 'sold',
         ];
         $item = Item::create($itemData);
         $item->categories()->attach([1,5]);//ファッション・メンズ
@@ -43,7 +43,7 @@ class ItemsTableSeeder extends Seeder
             'brand' => '西芝',
             'description' => '高速で信頼性の高いハードディスク',
             'price' => '5000',
-            'item_status' => 'sold',
+            'item_status' => 'available',
         ];
         $item = Item::create($itemData);
         $item->categories()->attach([15]);//パソコン
@@ -71,7 +71,7 @@ class ItemsTableSeeder extends Seeder
             'brand' => null,
             'description' => 'クラシックなデザインの革靴',
             'price' => '4000',
-            'item_status' => 'sold',
+            'item_status' => 'available',
         ];
         $item = Item::create($itemData);
         $item->categories()->attach([1,5]);//ファッション・メンズ
@@ -100,7 +100,7 @@ class ItemsTableSeeder extends Seeder
             'brand' => null,
             'description' => '高音質のレコーディング用マイク',
             'price' => '8000',
-            'item_status' => 'available',
+            'item_status' => 'sold',
         ];
         $item = Item::create($itemData);
         $item->categories()->attach([2]);//家電
@@ -128,7 +128,7 @@ class ItemsTableSeeder extends Seeder
             'brand' => null,
             'description' => '使いやすいタンブラー',
             'price' => '500',
-            'item_status' => 'sold',
+            'item_status' => 'available',
         ];
         $item = Item::create($itemData);
         $item->categories()->attach([10]);//キッチン

@@ -15,6 +15,7 @@ use Stripe\Checkout\Session;
 
 class PurchaseController extends Controller
 {
+    //商品購入画面表示
     public function confirm($item_id)
     {
         $purchaseItem = Item::findOrFail($item_id);
@@ -25,12 +26,14 @@ class PurchaseController extends Controller
         return view('purchases.purchase',compact('purchaseItem','shipping_address'));
     }
 
+    //住所変更ページ表示
     public function editAddress($item_id)
     {
         $purchaseItem = Item::findOrFail($item_id);
         return view('purchases.address',compact('purchaseItem'));
     }
 
+    //住所変更
     public function updateAddress(AddressRequest $request, $item_id)
     {
         session([
@@ -44,15 +47,16 @@ class PurchaseController extends Controller
         return redirect()->route('purchase.confirm',['item_id'=> $item_id]);
     }
 
+    //商品購入
     public function store(PurchaseRequest $request, $item_id)
     {
-        $purchaseItem = Item::findOrFail($item_id);
+        $purchaseItem = Item::findOrFail($item_id);//1.購入される商品をDBから取得（商品対象を特定）
 
-        Stripe::setApiKey(config('services.stripe.secret'));
+        Stripe::setApiKey(config('services.stripe.secret'));//2.ストライプセッション作成
 
         if (in_array($request->payment_method, ['card', 'konbini'])){
 
-            $session = Session::create([ // Stripeセッション作成
+            $session = Session::create([ // Stripeセッション作成（決済ページを作成）
                 'payment_method_types' => [$request->payment_method],
                 'line_items'=>[[
                     'price_data'=>[
@@ -68,8 +72,8 @@ class PurchaseController extends Controller
                 'success_url' => url('/mypage?page=buy'),
             ]);
 
-            $purchaseItem->item_status = 'sold';
-            $purchaseItem->save();
+            $purchaseItem->item_status = 'sold';//3.1の商品ステータスを売却済に変更
+            $purchaseItem->save();//4.売却済ステータスをDBに保存
 
             Order::create([ // 注文を保存（status = paid）
                 'buyer_id'=> Auth::id(),
